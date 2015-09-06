@@ -1,7 +1,6 @@
 ;;; c0-mode.el --- C0 mode derived mode
 
-;; Author:     2010 Jakob Max Uecker
-;; Maintainer: 
+;; Author:     Jakob Max Uecker
 ;; Created:    August 2010
 ;; Modified:   August 2010
 ;; Version:    0.1
@@ -26,6 +25,10 @@
 ;;
 ;;    This mode implements font-locking and indentation of C0 based on
 ;;    the functionality provided by cc-mode
+;;
+;;    To automatically switch to c0-mode when visiting a file with
+;;    extension ".c0" or ".h0", add the following to your init.el:
+;;    (add-to-list 'auto-mode-alist '("\.[ch]0$" . c0-mode))
 ;;
 ;;    Note: The interface used in this file requires CC Mode 5.30 or
 ;;    later.
@@ -219,13 +222,6 @@
   "*Hook called by `c0-mode'."
   :type 'hook
   :group 'c)
-
-;; (if awk-mode-map
-;;     nil
-;;   (setq awk-mode-map (c-make-inherited-keymap))
-;;   (define-key awk-mode-map "\C-c\C-n" 'undefined) ; #if doesn't exist in awk.
-;;   (define-key awk-mode-map "\C-c\C-p" 'undefined)
-;;   (define-key awk-mode-map "\C-c\C-u" 'undefined))
 
 (easy-menu-define c-c0-menu c0-mode-map "C0 Mode Commands"
 		  (cons "C0" (c-lang-const c-mode-menu c0)))
