@@ -47,9 +47,6 @@
 ;; Load cc-mode
 (require 'cc-mode)
 
-;; Load code for debugger interaction
-(require 'c0-codex)
-
 ;; These are only required at compile time to get the sources for the
 ;; language constants.  (The cc-fonts require and the font-lock
 ;; related constants could additionally be put inside an
@@ -211,16 +208,11 @@
 (defvar c0-mode-map
   (let ((map (c-make-inherited-keymap)))
     ;; Add bindings which are only useful for C0
-    (define-key map "\C-c\C-d" 'codex)
-    (define-key map "\C-c\C-g" 'codex-delete-highlight)
     map)
-  "Keymap used in C0 mode buffers.  \C-c\C-d starts debugger (codex).")
+  "Keymap used in C0 mode buffers.")
 
 (defvar cc0-path (concat c0-root "bin/cc0")
   "*Path to cc0 executable")
-
-(defvar codex-path (concat c0-root "bin/codex")
-  "*Path to the debugger (codex) executable")
 
 ;; Custom variables
 (defcustom c0-mode-hook nil
