@@ -211,7 +211,7 @@
     map)
   "Keymap used in C0 mode buffers.")
 
-(defvar cc0-path (concat c0-root "bin/cc0")
+(defvar cc0-path "cc0"
   "*Path to cc0 executable")
 
 ;; Custom variables
