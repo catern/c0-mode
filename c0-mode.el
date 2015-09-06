@@ -1,10 +1,11 @@
-;;; c0-mode.el --- C0 mode derived mode
+;;; c0-mode.el --- Major mode for editing C0 files
 
 ;; Author:     Jakob Max Uecker
 ;; Created:    August 2010
 ;; Modified:   August 2010
 ;; Version:    0.1
 ;; Keywords:   c0 languages
+;; Url:        http://c0.typesafety.net/
 
 ;; This program is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -24,10 +25,13 @@
 ;;; Commentary:
 ;;
 ;;    This mode implements font-locking and indentation of C0 based on
-;;    the functionality provided by cc-mode
+;;    the functionality provided by cc-mode. C0 is a variant of C
+;;    developed at Carnegie Mellon University for pedagogical
+;;    purposes.
 ;;
-;;    To automatically switch to c0-mode when visiting a file with
-;;    extension ".c0" or ".h0", add the following to your init.el:
+;;    To automatically use c0-mode when visiting a file with
+;;    extensions ".c0" or ".h0", add the following to your init.el:
+;;
 ;;    (add-to-list 'auto-mode-alist '("\.[ch]0$" . c0-mode))
 ;;
 ;;    Note: The interface used in this file requires CC Mode 5.30 or
@@ -47,6 +51,7 @@
 ;;
 ;;    0.1 - Initial release
 
+;;; Code:
 ;; Load cc-mode
 (require 'cc-mode)
 
@@ -56,14 +61,11 @@
 ;; (eval-after-load "font-lock" ...) but then some trickery is
 ;; necessary to get them compiled.)
 (eval-when-compile
-  (let ((load-path
-	 (if (and (boundp 'byte-compile-dest-file)
-		  (stringp byte-compile-dest-file))
-	     (cons (file-name-directory byte-compile-dest-file) load-path)
-	   load-path)))
-    (load "cc-mode" nil t)
-    (load "cc-fonts" nil t)
-    (load "cc-langs" nil t)))
+  (require 'cl)
+  (require 'cc-mode)
+  (require 'cc-fonts)
+  (require 'cc-langs)
+  )
 
 (eval-and-compile
   ;; Make our mode known to the language constant system.  Use C
@@ -215,7 +217,7 @@
   "Keymap used in C0 mode buffers.")
 
 (defvar cc0-path "cc0"
-  "*Path to cc0 executable")
+  "Path to cc0 executable.")
 
 ;; Custom variables
 (defcustom c0-mode-hook nil
@@ -259,7 +261,7 @@ Key bindings:
   ;; analysis and similar things working.
   (set 'compile-command (concat cc0-path " " (file-relative-name buffer-file-name)))
   (c-common-init 'c0-mode)
-  (c-run-mode-hooks 'c-mode-common-hook) ; 'awk-mode-hook 
+  (c-run-mode-hooks 'c-mode-common-hook) ; 'awk-mode-hook
   (c-update-modeline))
 
 (provide 'c0-mode)
