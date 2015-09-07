@@ -227,6 +227,8 @@
 
 (easy-menu-define c-c0-menu c0-mode-map "C0 Mode Commands"
 		  (cons "C0" (c-lang-const c-mode-menu c0)))
+;;;###autoload
+(add-to-list 'auto-mode-alist '("\.[ch]0$" . c0-mode))
 
 ;;; The entry point into the mode
 ;;;###autoload
