@@ -229,6 +229,35 @@
 		  (cons "C0" (c-lang-const c-mode-menu c0)))
 
 ;;; The entry point into the mode
+
+(define-derived-mode c0-deriv-mode c-mode "C0 Mode"
+  "Major mode for editing C0 (pronounced \"see nod\") code.
+Derived from cc-mode.
+
+The hook `c-mode-common-hook' is run with no args at mode
+initialization, then `c0-mode-hook'.
+
+Key bindings:
+\\{c0-mode-map}"
+  (c-initialize-cc-mode t)
+  (set-syntax-table c0-mode-syntax-table)
+  (setq indent-tabs-mode nil)
+  ;; Add the "C0" menu options (defined above in c0-mode-map)
+  (use-local-map c0-mode-map)
+  ;; `c-init-language-vars' is a macro that is expanded at compile
+  ;; time to a large `setq' with all the language variables and their
+  ;; customized values for our language.
+  (c-init-language-vars c0-mode)
+  ;; `c-common-init' initializes most of the components of a CC Mode
+  ;; buffer, including setup of the mode menu, font-lock, etc.
+  ;; There's also a lower level routine `c-basic-common-init' that
+  ;; only makes the necessary initialization to get the syntactic
+  ;; analysis and similar things working.
+  (setq compile-command (concat cc0-path " " (file-relative-name buffer-file-name)))
+  (c-common-init 'c0-mode)
+  (c-run-mode-hooks 'c-mode-common-hook) ; 'awk-mode-hook
+  (c-update-modeline))
+
 ;;;###autoload
 (defun c0-mode ()
   "Major mode for editing C0 (pronounced \"see nod\") code.
