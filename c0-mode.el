@@ -29,11 +29,6 @@
 ;;    developed at Carnegie Mellon University for pedagogical
 ;;    purposes.
 ;;
-;;    To automatically use c0-mode when visiting a file with
-;;    extensions ".c0" or ".h0", add the following to your init.el:
-;;
-;;    (add-to-list 'auto-mode-alist '("\.[ch]0$" . c0-mode))
-;;
 ;;    Note: The interface used in this file requires CC Mode 5.30 or
 ;;    later.
 
@@ -228,7 +223,7 @@
 (easy-menu-define c-c0-menu c0-mode-map "C0 Mode Commands"
 		  (cons "C0" (c-lang-const c-mode-menu c0)))
 ;;;###autoload
-(add-to-list 'auto-mode-alist '("\.[ch]0$" . c0-mode))
+(add-to-list 'auto-mode-alist '("\\.[ch][01]\\'" . c0-mode))
 
 ;;; The entry point into the mode
 ;;;###autoload
